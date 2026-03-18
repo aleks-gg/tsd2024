@@ -1,6 +1,7 @@
 ﻿using GoldSavings.App.Model;
 using GoldSavings.App.Client;
 using GoldSavings.App.Services;
+using GoldSavings.App.IO;
 namespace GoldSavings.App;
 
 class Program
@@ -71,6 +72,14 @@ class Program
         Console.WriteLine($"Sell on {bestDeal.BestSell.Date} for {bestDeal.BestSell.Price}");
         Console.WriteLine($"ROI: {(bestDeal.BestSell.Price - bestDeal.Buy.Price) / bestDeal.Buy.Price * 100}%");
         Console.WriteLine("---------------------------------------------");
+
+        // Step 3
+        XMLIO xmlIO = new XMLIO();
+        string filePath = "gold_prices_2020_2024.xml";
+        xmlIO.SaveGoldPricesToXML(prices2020_2024, filePath);
+
+        List<GoldPrice> loaded_prices = xmlIO.LoadGoldPricesFromXML(filePath);
+        Console.WriteLine($"Are equal: {loaded_prices.SequenceEqual(prices2020_2024)}");
 
         // Step 1: Get gold prices
         // DateTime startDate = new DateTime(2025,12,30);
