@@ -9,4 +9,13 @@ public class GoldPrice
 
     [JsonProperty("Cena")]
     public double Price { get; set; }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is GoldPrice other)
+        {
+            return this.Date == other.Date && this.Price == other.Price;
+        }
+        return false;
+    }
 }
