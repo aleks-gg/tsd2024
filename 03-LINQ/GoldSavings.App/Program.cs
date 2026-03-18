@@ -44,7 +44,7 @@ class Program
         Console.WriteLine("---------------------------------------------");
 
         // Step 2d
-        Console.WriteLine("\nStep 2d\nAverage gold price in 2024:");
+        Console.WriteLine("\nStep 2d\n");
         List<GoldPrice> prices2020 = dataService.GetGoldPrices(new DateTime(2020,01,01), new DateTime(2020,12,31)).GetAwaiter().GetResult();
         var avgPrice2020 = prices2020.Average(x => x.Price);
         Console.WriteLine($"Average gold price in 2020: {avgPrice2020}");
