@@ -28,7 +28,7 @@ class Program
         Console.WriteLine("\nTask 2\nTop 10 sell opportunities:");
         foreach (var sellPrice in sellPrices.Take(10))
         {
-            Console.WriteLine($"Sell on {sellPrice.Date.ToShortDateString()} for {sellPrice.Price}");
+            Console.WriteLine($"Sell on {sellPrice.Date} for {sellPrice.Price}");
         }
         Console.WriteLine("---------------------------------------------");
 
@@ -38,7 +38,7 @@ class Program
         List<GoldPrice> top3_in_second_10 = prices2022_2019.Skip(10).Take(3).ToList();
         Console.WriteLine("\nTask 3\nTop 3 prices in 2019-2022 excluding top 10:");
         foreach (var price in top3_in_second_10)        {
-            Console.WriteLine($"{price.Date.ToShortDateString()}: {price.Price}");
+            Console.WriteLine($"{price.Date}: {price.Price}");
         }
         Console.WriteLine("---------------------------------------------");
 
