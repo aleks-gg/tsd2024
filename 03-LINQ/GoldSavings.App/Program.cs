@@ -28,8 +28,7 @@ class Program
         foreach (var sellPrice in sellPrices.Take(10))
         {
             Console.WriteLine($"Sell on {sellPrice.Date.ToShortDateString()} for {sellPrice.Price}");
-        } // TODO: Doesn't print any sell opportunity, need to fix
-
+        }
 
         // Step 1: Get gold prices
         // DateTime startDate = new DateTime(2025,12,30);
