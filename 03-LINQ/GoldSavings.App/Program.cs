@@ -55,6 +55,22 @@ class Program
         List<GoldPrice> prices2024 = dataService.GetGoldPrices(new DateTime(2024,01,01), new DateTime(2024,12,31)).GetAwaiter().GetResult();
         var avgPrice2024 = prices2024.Average(x => x.Price);
         Console.WriteLine($"Average gold price in 2024: {avgPrice2024}");
+        Console.WriteLine("---------------------------------------------");
+
+        // Task 5
+        Console.WriteLine("\nTask 5\nBest Deal 2020-2024:");
+        List<GoldPrice> prices2020_2024 = dataService.GetGoldPrices(new DateTime(2020,01,01), new DateTime(2024,12,31)).GetAwaiter().GetResult();
+        var bestDeal = prices2020_2024
+            .Select(buy => new {
+                Buy = buy,
+                BestSell = prices2020_2024.Where(sell => sell.Date > buy.Date).MaxBy(sell => sell.Price)
+            })
+            .Where(x => x.BestSell != null)
+            .MaxBy(x => x.BestSell.Price - x.Buy.Price);
+        Console.WriteLine($"Buy on  {bestDeal.Buy.Date} for {bestDeal.Buy.Price}");
+        Console.WriteLine($"Sell on {bestDeal.BestSell.Date} for {bestDeal.BestSell.Price}");
+        Console.WriteLine($"ROI: {(bestDeal.BestSell.Price - bestDeal.Buy.Price) / bestDeal.Buy.Price * 100}%");
+        Console.WriteLine("---------------------------------------------");
 
         // Step 1: Get gold prices
         // DateTime startDate = new DateTime(2025,12,30);
