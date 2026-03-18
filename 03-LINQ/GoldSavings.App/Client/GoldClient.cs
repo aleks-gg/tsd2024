@@ -42,10 +42,10 @@ public class GoldClient
     public async Task<List<GoldPrice>> GetGoldPrices(DateTime startDate, DateTime endDate)
     {
         List<GoldPrice> allPrices = new List<GoldPrice>();
-        for (int i = 0; i <= 90; i+=Math.Min(90, (endDate - startDate).Days))
+        for (int i = 0; i <= (endDate - startDate).Days; i+=90)
         {
             string dateFormat = "yyyy-MM-dd";
-            string requestUri = $"cenyzlota/{startDate.AddDays(i).ToString(dateFormat)}/{endDate.AddDays(i).ToString(dateFormat)}";
+            string requestUri = $"cenyzlota/{startDate.AddDays(i).ToString(dateFormat)}/{startDate.AddDays(Math.Min(i + 90, (endDate - startDate).Days)).ToString(dateFormat)}";
             HttpResponseMessage responseMsg = _client.GetAsync(requestUri).GetAwaiter().GetResult();
             if (responseMsg.IsSuccessStatusCode)
             {
