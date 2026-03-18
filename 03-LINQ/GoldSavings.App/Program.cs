@@ -18,6 +18,7 @@ class Program
         Console.WriteLine("Task 1");
         Console.WriteLine($"Top 3 Gold prices in 2025: {string.Join(", ", goldPrices2025.Take(3).Select(x => x.Price))}");
         Console.WriteLine($"Bottom 3 Gold prices in 2025: {string.Join(", ", goldPrices2025.TakeLast(3).Select(x => x.Price))}");
+        Console.WriteLine("---------------------------------------------");
         
         // Task 2
         List<GoldPrice> jan2020Prices = dataService.GetGoldPrices(new DateTime(2020,01,01), new DateTime(2020,01,31)).GetAwaiter().GetResult();
@@ -29,6 +30,31 @@ class Program
         {
             Console.WriteLine($"Sell on {sellPrice.Date.ToShortDateString()} for {sellPrice.Price}");
         }
+        Console.WriteLine("---------------------------------------------");
+
+        // Task 3
+        List<GoldPrice> prices2022_2019 = dataService.GetGoldPrices(new DateTime(2019,01,01), new DateTime(2022,12,31)).GetAwaiter().GetResult();
+        prices2022_2019 = prices2022_2019.OrderByDescending(x => x.Price).ToList();
+        List<GoldPrice> top3_in_second_10 = prices2022_2019.Skip(10).Take(3).ToList();
+        Console.WriteLine("\nTask 3\nTop 3 prices in 2019-2022 excluding top 10:");
+        foreach (var price in top3_in_second_10)        {
+            Console.WriteLine($"{price.Date.ToShortDateString()}: {price.Price}");
+        }
+        Console.WriteLine("---------------------------------------------");
+
+        // Task 4
+        Console.WriteLine("\nTask 4\nAverage gold price in 2024:");
+        List<GoldPrice> prices2020 = dataService.GetGoldPrices(new DateTime(2020,01,01), new DateTime(2020,12,31)).GetAwaiter().GetResult();
+        var avgPrice2020 = prices2020.Average(x => x.Price);
+        Console.WriteLine($"Average gold price in 2020: {avgPrice2020}");
+
+        List<GoldPrice> prices2023 = dataService.GetGoldPrices(new DateTime(2023,01,01), new DateTime(2023,12,31)).GetAwaiter().GetResult();
+        var avgPrice2023 = prices2023.Average(x => x.Price);
+        Console.WriteLine($"Average gold price in 2023: {avgPrice2023}");
+
+        List<GoldPrice> prices2024 = dataService.GetGoldPrices(new DateTime(2024,01,01), new DateTime(2024,12,31)).GetAwaiter().GetResult();
+        var avgPrice2024 = prices2024.Average(x => x.Price);
+        Console.WriteLine($"Average gold price in 2024: {avgPrice2024}");
 
         // Step 1: Get gold prices
         // DateTime startDate = new DateTime(2025,12,30);
